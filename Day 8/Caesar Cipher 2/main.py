@@ -17,10 +17,25 @@ def encrypt(original_text, shift_amount):
         shifted_position = alphabet.index(letter) + shift_amount
         shifted_position %= len(alphabet)
         cipher_text += alphabet[shifted_position]
-    print(f"Here is the encoded result: {cipher_text}")
+    return cipher_text
 
+def decrypt(original_text, shift_amount):
+    cipher_text = ""
+    for letter in original_text:
+        shifted_position = alphabet.index(letter) - shift_amount
+        while shifted_position < 0:
+            shifted_position += len(alphabet)
+        shifted_position %= len(alphabet)
+        cipher_text += alphabet[shifted_position]
+    return cipher_text
 
-encrypt(original_text=text, shift_amount=shift)
+def caesar(direction, original_text, shift_amount):
+    if direction == "encode":
+        return encrypt(original_text, shift_amount)
+    elif direction == "decode":
+        return decrypt(original_text, shift_amount)
 
+    return "Invalid Input"
 
-
+result = caesar(direction, text, shift)
+print(f"Here is the result: {result}")
